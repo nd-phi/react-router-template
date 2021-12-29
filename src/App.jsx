@@ -1,6 +1,7 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 
 const routes = [
   {
@@ -45,8 +46,13 @@ export default function App() {
     <div>
       <NavBar routes={routes} />
       <Routes>
+        <Route path="login" element={<p>Login</p>} />
         {routes.map(({ path, exact, element }) => (
-          <Route path={path} exact={exact} element={element} />
+          <Route
+            path={path}
+            exact={exact}
+            element={<PrivateRoute>{element}</PrivateRoute>}
+          />
         ))}
         <Route path="*" element={<NotFound />} />
       </Routes>
